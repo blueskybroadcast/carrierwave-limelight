@@ -10,8 +10,8 @@ module CarrierWave
       end
 
       def store!(file)
-        LimelightFile.new(uploader, connection).tap do |limelight_file|
-          limelight_file.store(file)
+        LimelightFile.new(uploader, connection, file).tap do |limelight_file|
+          limelight_file.store
         end
       end
 
