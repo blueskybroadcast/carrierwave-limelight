@@ -8,10 +8,20 @@ module LimelightApi
       @jsonrpc_endpoint = 'http://global.llp.lldns.net:8080/jsonrpc2'
     end
 
-    def upload file_path, file_base_name = nil, directory = nil
-      file_base_name = file_path.split("/").last unless file_base_name
-      @last_uploaded_file = RestClient.post( @upload_endpoint, get_file(file_path), upload_headers(file_base_name, directory) )
-      @last_uploaded_file.headers[:x_agile_path]
+    def upload file_path, file_base_name = nil, directory = nil, tries=2
+      begin
+        file_base_name = file_path.split("/").last unless file_base_name
+        @last_uploaded_file = RestClient.post( @upload_endpoint, get_file(file_path), upload_headers(file_base_name, directory) )
+        @last_uploaded_file.headers[:x_agile_path]
+      rescue RestClient::Forbidden => e
+        puts e.response.headers
+        if (tries -= 1) > 0
+          @token = get_new_token
+          retry
+        else
+          raise e
+        end
+      end
     end
 
     def last_uploaded_file
@@ -34,6 +44,10 @@ module LimelightApi
     end
 
     private
+
+    def get_new_token
+      LimelightApi::Auth.new.token
+    end
 
     def request_jsonrpc method, params, jsonrpc = '2.0'
       {

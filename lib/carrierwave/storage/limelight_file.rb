@@ -28,6 +28,10 @@ module CarrierWave
         @file.content_type
       end
 
+      def filename
+        URI.decode(@path).gsub(/.*\/(.*?$)/, '\1') if @path
+      end
+
       def media_types
         ['audio/mpeg', 'audio/wav', 'audio/x-m4a']
       end

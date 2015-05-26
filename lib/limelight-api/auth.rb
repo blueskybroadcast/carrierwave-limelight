@@ -26,7 +26,7 @@ module LimelightApi
 
     def request_jsonrpc method, params, jsonrpc = '2.0'
       {
-        'id' => Time.now.to_f,
+        'id' => '',
         'jsonrpc' => jsonrpc,
         'method' => method,
         'params' => params

@@ -18,9 +18,19 @@ Or install it yourself as:
 
     $ gem install carrierwave-limelight
 
-## Usage
+## Configure
 
-TODO: Write usage instructions here
+```
+  CarrierWave.configure do |config|
+    self.limelight_credentials = {
+      provider: 'limelight',
+      limelight_username: ENV['LIMELIGHT_USERNAME'],
+      limelight_password: ENV['LIMELIGHT_PASSWORD']
+    }
+    self.root_path = '/username/path'
+    self.asset_host = 'http://username.vo.llnwd.net/o10'
+  end
+```
 
 ## Contributing
 
