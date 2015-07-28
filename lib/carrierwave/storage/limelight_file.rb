@@ -33,7 +33,7 @@ module CarrierWave
       end
 
       def media_types
-        ['audio/mpeg', 'audio/wav', 'audio/x-m4a']
+        ['audio/mpeg', 'audio/wav', 'audio/x-m4a', 'audio/x-wav']
       end
 
       def duration
