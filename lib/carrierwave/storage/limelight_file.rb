@@ -33,11 +33,11 @@ module CarrierWave
       end
 
       def media_types
-        ['audio/mpeg', 'audio/wav', 'audio/x-m4a']
+        ['audio/mpeg', 'audio/wav', 'audio/x-m4a', 'audio/x-wav']
       end
 
       def duration
-        @duration ||= if media_types.include?(media_type) 
+        @duration ||= if media_types.include?(media_type)
           FFMPEG::Movie.new(@file.file).duration
         end
       end
