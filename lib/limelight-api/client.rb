@@ -39,15 +39,6 @@ module LimelightApi
       Rails.logger.warn e.response
     end
 
-    def move_file filepath, newpath
-      @make_dir_response = RestClient.post(@jsonrpc_endpoint,
-                                           request_jsonrpc('rename', {token: @token, oldpath: filepath, newpath: newpath}))
-    rescue RestClient::ExceptionWithResponse => e
-      Rails.logger.warn 'Limelight rename JSONRPC Request FAILED:'
-      Rails.logger.warn e.message
-      Rails.logger.warn e.response
-    end
-
     def delete_file path
       @delete_file_response = RestClient.post( @jsonrpc_endpoint,
                                                request_jsonrpc('deleteFile', {token: @token, path: path}) )
