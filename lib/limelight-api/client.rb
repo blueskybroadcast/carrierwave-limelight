@@ -39,6 +39,15 @@ module LimelightApi
       Rails.logger.warn e.response
     end
 
+    def list_directories
+      @make_dir_response = RestClient.post(@jsonrpc_endpoint,
+                                           request_jsonrpc('listDir', {token: @token, path: "/"}))
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.warn 'Limelight listDir JSONRPC Request FAILED:'
+      Rails.logger.warn e.message
+      Rails.logger.warn e.response
+    end
+
     def make_dir path
       @make_dir_response = RestClient.post(@jsonrpc_endpoint,
                                            request_jsonrpc('makeDir2', {token: @token, path: path}))
